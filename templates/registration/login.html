@@ -49,6 +49,9 @@
         <input id="button-submit" type="submit" class="btn btn-default btn-lg" value="Se connecter" />
         <input type="hidden" name="next" value="{{ next }}" />
         <h3><a id="button-sign_in" class="btn btn-default btn-lg" href="{% url 'users:sign_in' %}">Toujours pas inscrit ?</a></h3>
+        <h3><a id="button-reset" class="btn btn-default btn-lg" href="{% url 'password_reset' %}">Mot de passe perdu ?</a></h3>
+</div>
+
   </form>
   </div>
 </div>
