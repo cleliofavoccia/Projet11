@@ -1,12 +1,10 @@
 """Views of products app, all views that concern products"""
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views import generic
 from django.db.models import Count
 
 from .models import Product
-
-import json
 
 
 class ResultsListView(generic.ListView):
@@ -59,16 +57,21 @@ class ProductDetailView(generic.DetailView):
     model = Product
 
 
-def autocomplete_model(request):
-    """"""
-    if request.is_ajax():
+class AutocompleteView(generic.View):
+    """Generic class-based view to
+    help user to find his product to replace
+    with an autocomplete mechanism"""
+
+    def get(self, request):
+        """Method to apply autocomplete
+        mechanism in case of only get method"""
         searched_term = request.GET.get("term")
-        research = Product.objects.filter(name__startswith=searched_term)
+        research = (
+            Product.objects
+            .filter(name__startswith=searched_term)
+            .order_by('-nutriscore')
+                    )
         results = []
         for r in research:
             results.append(r.name)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+        return JsonResponse(results, safe=False)

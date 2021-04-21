@@ -27,5 +27,6 @@
 <h2 class="text-center" style="margin-bottom: 30px; margin-left: 40%;">
     {{ user.email }}
 </h2>
+    <h3><a id="button-reset" class="btn btn-default btn-lg" href="{% url 'password_reset' %}" style="margin-bottom: 30px; margin-left: 40%;">Mot de passe perdu ?</a></h3>
 </div>
 {% endblock content %}

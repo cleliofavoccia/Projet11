@@ -7,5 +7,5 @@ app_name = 'products'
 urlpatterns = [
     path('<int:pk>/', views.ProductDetailView.as_view(), name='product'),
     path('results/', views.ResultsListView.as_view(), name='results'),
-    path('autocomplete/', views.autocomplete_model, name='autocomplete'),
+    path('autocomplete/', views.AutocompleteView.as_view(), name='autocomplete'),
     ]

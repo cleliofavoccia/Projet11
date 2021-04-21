@@ -3,8 +3,11 @@
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.db.models import Count
+from django.http import JsonResponse
 
 from products.models import Product, Category
+
+import json
 
 
 class ResultsListViewTest(TestCase):
@@ -181,3 +184,23 @@ class ProductDetailView(TestCase):
         # Check that we got a response "success"
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/product_detail.html')
+
+
+class AutocompleteView(TestCase):
+    """Test AutocompleteView print products relative
+     to what the user search in reverse order by
+     nutriscore."""
+
+    def test_view_print_relative_products(self):
+        searched_term = {'term': 'pai'}
+        research = (
+            Product.objects
+            .filter(name__startswith=searched_term['term'])
+            .order_by('-nutriscore')
+        )
+        results = []
+        for r in research:
+            results.append(r.name)
+
+        self.assertEqual(results,
+                         self.client.get(reverse('products:autocomplete'), data=searched_term).json())

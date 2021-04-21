@@ -15,8 +15,6 @@ import os
 
 from dotenv import load_dotenv, find_dotenv
 
-import django_heroku
-
 load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,7 +140,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [str(BASE_DIR / "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
@@ -157,8 +155,6 @@ LOGIN_URL = 'login'
 
 # Personnalised User
 AUTH_USER_MODEL = 'users.User'
-
-django_heroku.settings(locals())
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

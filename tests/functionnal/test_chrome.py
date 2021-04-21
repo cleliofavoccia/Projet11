@@ -171,3 +171,30 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
         )
         self.driver.find_element_by_css_selector('#button-submit').click()
         self.driver.find_element_by_css_selector('#button-favorites')
+
+    def test_user_can_reinitialize_his_password_if_he_loose_it(self):
+        """Test if user with a Chrome session can connect and
+        disconnect to the website"""
+        self.driver.get(self.live_server_url)
+        # Connect
+        self.driver.find_element_by_css_selector('#button-login').click()
+        # Reinitialize
+        self.driver.find_element_by_css_selector('#button-reset').click()
+        self.driver.find_element_by_css_selector('#id_email').click()
+
+    def test_user_can_reinitialize_his_password_if_he_want_it(self):
+        """Test if user with a Chrome session can connect and
+        disconnect to the website"""
+        self.driver.get(self.live_server_url)
+        # Connect
+        self.driver.find_element_by_css_selector('#button-login').click()
+        self.driver.find_element_by_css_selector('#id_username').send_keys(
+            "testuser"
+        )
+        self.driver.find_element_by_css_selector('#id_password').send_keys(
+            "PdfjqX458s"
+        )
+        self.driver.find_element_by_css_selector('#button-submit').click()
+        self.driver.find_element_by_css_selector('#button-account').click()
+        # Reinitialize
+        self.driver.find_element_by_css_selector('#button-reset').click()
