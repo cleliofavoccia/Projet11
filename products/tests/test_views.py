@@ -195,7 +195,9 @@ class AutocompleteView(TestCase):
         searched_term = {'term': 'pai'}
         research = (
             Product.objects
-            .filter(name__startswith=searched_term['term'])
+            .filter(
+                name__startswith=searched_term['term']
+            )
             .order_by('-nutriscore')
         )
         results = []
@@ -203,4 +205,7 @@ class AutocompleteView(TestCase):
             results.append(r.name)
 
         self.assertEqual(results,
-                         self.client.get(reverse('products:autocomplete'), data=searched_term).json())
+                         self.client.get(
+                             reverse('products:autocomplete'),
+                             data=searched_term).json()
+                         )

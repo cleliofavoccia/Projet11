@@ -155,7 +155,7 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
                 Keys.ENTER
             )
         )
-        self.driver.find_element_by_tag_name('a').click()  # Error
+        self.driver.find_element_by_tag_name('a').click()
 
     def test_user_can_access_to_his_favorites_page(self):
         """Test if user with a Chrome session can access
@@ -184,8 +184,8 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
         self.driver.find_element_by_css_selector('#id_email').click()
 
     def test_user_can_reinitialize_his_password_if_he_want_it(self):
-        """Test if user with a Chrome session can connect and
-        disconnect to the website"""
+        """Test if user with a Chrome session can reinitialize
+        his password if he want it"""
         self.driver.get(self.live_server_url)
         # Connect
         self.driver.find_element_by_css_selector('#button-login').click()
@@ -199,3 +199,23 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
         self.driver.find_element_by_css_selector('#button-account').click()
         # Reinitialize
         self.driver.find_element_by_css_selector('#button-reset').click()
+        self.driver.find_element_by_css_selector('#id_email').send_keys(
+            "testuser@test.com"
+        )
+        self.driver.find_element_by_css_selector('#id_email').send_keys(
+            Keys.ENTER
+        )
+
+    def test_user_can_reinitialize_his_password_if_he_forgot_it(self):
+        """Test if user with a Chrome session can reinitialize
+        his password if he forgot it"""
+        self.driver.get(self.live_server_url)
+        self.driver.find_element_by_css_selector('#button-login').click()
+        # Reinitialize
+        self.driver.find_element_by_css_selector('#button-reset').click()
+        self.driver.find_element_by_css_selector('#id_email').send_keys(
+            "testuser@test.com"
+        )
+        self.driver.find_element_by_css_selector('#id_email').send_keys(
+            Keys.ENTER
+        )
